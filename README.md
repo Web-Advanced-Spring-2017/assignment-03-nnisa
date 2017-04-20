@@ -1,3 +1,5 @@
+An RGB-LED controllers.
+
 npm install redis 
 npm install express
 npm install socket.io
