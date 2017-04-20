@@ -1,7 +1,7 @@
 'use strict';
 
 var redis = require("redis"),
-  client = redis.createClient();
+  database = redis.createClient();
 
 const five = require('johnny-five');
 const express = require('express');
@@ -55,11 +55,25 @@ five.Board().on('ready', function() {
   // Every time a 'rgb' event is sent, listen to it and grab its new values for each individual colour
     client.on('rgb', function(data) {
       state.red = data.color === 'red' ? data.value : state.red;
+      if (data.color == 'red'){
+        console.log("red" + data.value);
+        database.set("red", data.value);
+      }
+      
       state.green = data.color === 'green' ? data.value : state.green;
+      if (data.color == 'green'){
+        console.log("green" + data.value);
+        database.set("green", data.value);
+      }
+
       state.blue = data.color === 'blue' ? data.value : state.blue;
+      if (data.color == 'blue'){
+        console.log("blue" + data.value);
+        database.set("blue", data.value);
+      }
       
       // console.log("player " + socket.id + " pressed " + data);
-      client.set("score:"+ data.value);
+
 
 
       // Set the new colors
